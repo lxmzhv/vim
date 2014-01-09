@@ -1,6 +1,6 @@
-" Vim color file -- Mizore
+" Vim color file -- L
 " Maintainer: Luinnar
-" Last Change: 11-Nov-2010
+" Last Change: 09-Jan-14
 
 set background=dark
 highlight clear
@@ -13,6 +13,10 @@ let g:colors_name="l"
 
 let save_cpo = &cpo
 set cpo&vim
+
+if !has('gui_running')
+  set t_Co=256
+end
 
 let s:rgb_map = {
   \ 'NONE': 'NONE',
@@ -66,7 +70,7 @@ let s:rgb_map = {
   \ 251: "#D0D0D0", 252: "#D8D8D8", 253: "#E0E0E0", 254: "#E9E9E9", 255: "#F1F1F1"
 \ }
 
-function! s:hi_style(item, fg, bg, style)
+function! s:hi(item, fg, bg, style)
     let s:cmd = "hi ".a:item
     if !empty(a:bg)
         let s:cmd = s:cmd." ctermbg=".a:bg." guibg=".s:rgb_map[a:bg]
@@ -80,15 +84,6 @@ function! s:hi_style(item, fg, bg, style)
     exec s:cmd
 endfunction
 
-func! s:hi(item, fg, bg)
-    call s:hi_style(a:item, a:fg, a:bg, '')
-endfunc
-
-" basic highlight groups (:help highlight-groups)
-
-" text
-"
-"
 
 let s:bg = 233 "|234
 let s:fg = 38
@@ -100,40 +95,41 @@ let s:red = 124
 let s:diff = 202
 let s:diff_bg = 233
 
-if !has('gui_running')
-  set t_Co=256
-end
 
-call s:hi('Normal', s:fg, s:bg)
-call s:hi('DiffChange', '', s:diff_bg)
-call s:hi('DiffAdd', s:diff, s:diff_bg)
-call s:hi_style('DiffText', s:diff, s:diff_bg, 'NONE')
-call s:hi_style('DiffDelete', '243', s:diff_bg, 'NONE')
-exe 'hi Folded       guifg=#c2bfa5  ctermfg=lightgray  guibg=#202020 ctermbg='.s:bg.'  gui=underline cterm=underline'
-exe 'hi LineNr       guifg=#928c75  ctermfg=darkgray   guibg='.s:rgb_map[s:bg].' ctermbg='.s:bg
-exe 'hi Directory    guifg=#00bbdd  ctermfg=cyan       guibg='.s:rgb_map[s:bg].' ctermbg='.s:bg
-exe 'hi NonText      guifg=#77ff22  ctermfg=yellow     guibg='.s:rgb_map[s:bg].' ctermbg='.s:bg.'  gui=bold cterm=bold'
-exe 'hi SpecialKey   guifg=#559933  ctermfg=green      guibg='.s:rgb_map[s:bg].' ctermbg='.s:bg
-exe 'hi SpellBad     guifg=NONE     ctermfg='.s:white.'                    ctermbg=9'
-exe 'hi SpellCap     guifg=NONE     ctermfg='.s:white.'                    ctermbg=darkblue'
-exe 'hi SpellLocal   guifg=NONE     ctermfg='.s:bg.'                    ctermbg=cyan'
-exe 'hi SpellRare    guifg=NONE     ctermfg='.s:white.'                    ctermbg='.s:macro.''
+" basic highlight groups (:help highlight-groups)
+
+" text
+
+call s:hi('Normal', s:fg, s:bg, '')
+call s:hi('DiffChange', '', s:diff_bg, '')
+call s:hi('DiffAdd', s:diff, s:diff_bg, '')
+call s:hi('DiffText', s:diff, s:diff_bg, 'NONE')
+call s:hi('DiffDelete', '243', s:diff_bg, 'NONE')
+call s:hi('Folded', '249', s:bg, 'underline')
+call s:hi('LineNr', '242', s:bg, '')
+call s:hi('Directory', '39', s:bg, '')
+call s:hi('NonText', '229', s:bg, 'bold')
+call s:hi('SpecialKey', '229', s:bg, '')
+exe 'hi SpellBad    guifg=NONE  ctermfg=NONE ctermbg=52'
+exe 'hi SpellCap    guifg=NONE  ctermfg=NONE ctermbg=52'
+exe 'hi SpellLocal  guifg=NONE  ctermfg=NONE ctermbg=52'
+exe 'hi SpellRare   guifg=NONE  ctermfg=NONE ctermbg=53'
 
 " borders / separators / menus
 
-exe 'hi FoldColumn   guifg=#c8bcb9       guibg=#786d65       ctermfg=lightgray   ctermbg=darkgray  gui=bold   cterm=bold'
-exe 'hi SignColumn   guifg=#c8bcb9       guibg=#786d65       ctermfg=lightgray   ctermbg=darkgray  gui=bold   cterm=bold'
-exe 'hi Pmenu        guifg='.s:rgb_map[s:bg].'       guibg=#a6a190       ctermfg='.s:white.'       ctermbg=darkgray'
-exe 'hi PmenuSel     guifg=#ffffff       guibg=#133293       ctermfg='.s:white.'       ctermbg=lightblue'
-exe 'hi PmenuSbar    guifg=NONE          guibg=#555555       ctermfg='.s:bg.'       ctermbg='.s:bg
-exe 'hi PmenuThumb   guifg=NONE          guibg=#cccccc       ctermfg=gray        ctermbg=gray'
-exe 'hi WildMenu     guifg=#ffffff       guibg=#133293       ctermfg='.s:white.'       ctermbg=darkblue  gui=bold   cterm=bold'
-call s:hi('VertSplit', 236, 245)
-call s:hi_style('TabLine', 230, 236, 'NONE')
-call s:hi_style('TabLineSel', 226, 238, 'bold')
-call s:hi('TabLineFill', s:bg, s:bg)
-call s:hi_style('StatusLine', 252, 236, 'NONE')
-call s:hi_style('StatusLineNC', 243, 235, 'NONE')
+call s:hi('FoldColumn', 248, s:bg, 'bold')
+call s:hi('SignColumn', 248, s:bg, 'bold')
+call s:hi('Pmenu', 244, s:bg, '')
+call s:hi('PmenuSel', s:white, 240, '')
+exe 'hi PmenuSbar  guifg=NONE guibg=#555555  ctermfg='.s:bg.'  ctermbg='.s:bg
+exe 'hi PmenuThumb guifg=NONE guibg=#cccccc  ctermfg=gray      ctermbg=gray'
+call s:hi('WildMenu', s:white, 17, 'bold')
+call s:hi('VertSplit', 236, 245, '')
+call s:hi('TabLine', 230, 236, 'NONE')
+call s:hi('TabLineSel', 226, 238, 'bold')
+call s:hi('TabLineFill', s:bg, s:bg, '')
+call s:hi('StatusLine', 252, 236, 'NONE')
+call s:hi('StatusLineNC', 243, 235, 'NONE')
 
 "hi Menu
 "hi Scrollbar
@@ -141,47 +137,47 @@ call s:hi_style('StatusLineNC', 243, 235, 'NONE')
 
 " cursor / dynamic / other
 
-call s:hi('Cursor', s:bg, s:fg)
-"call s:hi_style('CursorIM', s:bg, s:white, 'reverse')
-call s:hi_style('CursorLine', '', 235, 'NONE')
-call s:hi_style('CursorColumn', '', 235, 'NONE')
-call s:hi_style('DebugStop', '', 235, 'NONE')
-call s:hi('Visual', '', 236)
-call s:hi('Search', '', 24)
-call s:hi('MatchParen', '', 24)
+call s:hi('Cursor', s:bg, s:fg, '')
+"call s:hi('CursorIM', s:bg, s:white, 'reverse')
+call s:hi('CursorLine', '', 235, 'NONE')
+call s:hi('CursorColumn', '', 235, 'NONE')
+call s:hi('DebugStop', '', 235, 'NONE')
+call s:hi('Visual', '', 236, '')
+call s:hi('Search', '', 24, '')
+call s:hi('MatchParen', '', 24, '')
 
 "hi IncSearch
 "hi VisualNOS
 
 " listings / messages
 
-exe 'hi ModeMsg      guifg=#eecc18 ctermfg=yellow'
-exe 'hi Title        guifg=#dd4452 ctermfg='.s:red.'       guibg='.s:rgb_map[s:bg].' ctermbg='.s:bg.'  gui=bold cterm=bold'
-exe 'hi Question     guifg=#66d077 ctermfg=green     guibg='.s:rgb_map[s:bg].' ctermbg='.s:bg
-exe 'hi MoreMsg      guifg=#39d049 ctermfg=green     guibg='.s:rgb_map[s:bg].' ctermbg='.s:bg
-exe 'hi ErrorMsg     guifg=#ffffff ctermfg='.s:white.'     guibg=#ff0000 ctermbg='.s:red.'    gui=bold cterm=bold'
-exe 'hi WarningMsg   guifg=#ccae22 ctermfg=yellow    guibg='.s:rgb_map[s:bg].' ctermbg='.s:bg.'  gui=bold cterm=bold'
+call s:hi('Title', s:red, s:bg, 'bold')
+call s:hi('ErrorMsg', 255, s:red, 'bold')
+call s:hi('ModeMsg', 229, '', '')
+call s:hi('Question', 28, s:bg, '')
+call s:hi('MoreMsg', 28, s:bg, '')
+call s:hi('WarningMsg', 229, s:bg, 'bold')
 
 " syntax highlighting groups (:help group-name)
 
-call s:hi('Comment', '248', s:bg)
-call s:hi_style('Statement', s:white, s:bg, 'bold')
-call s:hi_style('Identifier', s:white, s:bg, 'NONE')
-call s:hi('Keyword', s:white, s:bg)
-call s:hi('Operator', s:white, s:bg)
-call s:hi('Delimiter', s:white, s:bg)
-call s:hi('Error', s:white, s:red)
-call s:hi('Function', s:func, s:bg)
-call s:hi_style('Todo', s:diff, s:bg, 'bold')
-call s:hi_style('Underlined', s:fg, s:bg, 'underline')
-call s:hi('Ignore', 238, s:bg)
-call s:hi('Constant', s:const, s:bg)
-call s:hi('Number',   s:const, s:bg)
-call s:hi('Special',  229, s:bg)
-call s:hi('PreProc',  s:macro, s:bg)
-call s:hi('Macro',    s:macro, s:bg)
-call s:hi_style('StorageClass', s:white, s:bg, 'bold')
-call s:hi_style('Structure', s:white, s:bg, 'bold')
-call s:hi_style('Type', s:white, s:bg, 'NONE')
+call s:hi('Comment', 248, s:bg, '')
+call s:hi('Statement', s:white, s:bg, 'bold')
+call s:hi('Identifier', s:white, s:bg, 'NONE')
+call s:hi('Keyword', s:white, s:bg, '')
+call s:hi('Operator', s:white, s:bg, '')
+call s:hi('Delimiter', s:white, s:bg, '')
+call s:hi('Error', s:white, s:red, '')
+call s:hi('Function', s:func, s:bg, '')
+call s:hi('Todo', s:diff, s:bg, 'bold')
+call s:hi('Underlined', s:fg, s:bg, 'underline')
+call s:hi('Ignore', 238, s:bg, '')
+call s:hi('Constant', s:const, s:bg, '')
+call s:hi('Number',   s:const, s:bg, '')
+call s:hi('Special',  229, s:bg, '')
+call s:hi('PreProc',  s:macro, s:bg, '')
+call s:hi('Macro',    s:macro, s:bg, '')
+call s:hi('StorageClass', s:white, s:bg, 'bold')
+call s:hi('Structure', s:white, s:bg, 'bold')
+call s:hi('Type', s:white, s:bg, 'NONE')
 
 let &cpo = save_cpo
