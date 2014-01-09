@@ -1,4 +1,4 @@
-" Vim color file -- L
+" Vim color file -- Elda
 " Maintainer: Luinnar
 " Last Change: 09-Jan-14
 
@@ -9,7 +9,7 @@ if exists("syntax_on")
   syntax reset
 endif
 
-let g:colors_name="l"
+let g:colors_name="elda"
 
 let save_cpo = &cpo
 set cpo&vim
