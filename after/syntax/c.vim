@@ -1,7 +1,7 @@
 " Vim filetype plugin file
 " Language:    C file syntax extensions
 " Maintainer:  Alexey Mozhaev <lxmzhv@gmail.com>
-" Last Change: 28-Jun-11
+" Last Change: 09-Jan-14
 
 " Common
 syn match    Delimiter "[[\](){},;:?]"
@@ -31,21 +31,3 @@ syn keyword Macro    NULL TRUE FALSE
 " Links
 hi def link cUserFunction         Function
 hi def link cUserFunctionPointer  Function
-
-if !empty($proj) && filereadable($proj.'/.syntax.vim') | exec 'so '.$proj.'/.syntax.vim' | endif
-"if filereadable('.syntax.vim') | so '.syntax.vim' | endif
-
-" Load types
-"if !exists("g:no_ptc_types")
-  "let ftypes = $PTCSRC.'/softdb/types.vim'
-  "if filereadable(ftypes)
-    "exec 'so ' . ftypes
-  "endif
-"endif
-
-" It slows down vim startup!
-" Load enums
-"let fenums = $PTCSRC.'/softdb/enums.vim'
-"if filereadable(fenums)
-  "exec 'so ' . fenums
-"endif
