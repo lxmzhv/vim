@@ -120,3 +120,11 @@ map <Leader>U :call FindTagUsage( expand("<cword>"), "", 0 )<CR>
 map <Leader>P :call FindTagUsage( expand("<cword>"), "", 1 )<CR>
 map <Leader>D :call FindTagUsage( expand("<cword>"), "\.h$", 0 )<CR>
 map <Leader>T :call FindTextUsage( expand("<cword>") )<CR>
+
+" Hotkeys for iterating through the items found with FindTextUsage():
+" (Ctrl+k - moving upward through the list, Ctrl+j - moving downward):
+map <C-k> :cprevious<CR>
+map <C-j> :cnext<CR>
+" Alternative mapping (if mappings above are needed for another actions):
+" map <F6> :cprevious<CR>
+" map <F7> :cnext<CR>
