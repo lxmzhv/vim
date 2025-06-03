@@ -28,14 +28,14 @@ Set the environment variable `GOOGLE_API_KEY` to your API key.
 
 You can configure the following variables in your `.vimrc` file:
 
-*   `g:ai_query_tool_path`: The path to the external AI tool. Defaults to `<plugin_root>/python/gemini.py`, where `<plugin_root>` is the root directory of the plugin.
+*   `g:ai_query_command`: The command to run the external AI tool. Defaults to `python3 <plugin_root>/python/gemini.py`, where `<plugin_root>` is the root directory of the plugin.
 *   `g:ai_query_agent_instructions`: Instructions provided to the AI agent to guide its modifications. Defaults to general software development instructions.
 
 Example configuration:
 
 ```vim
-" Set the path to the AI tool
-let g:ai_query_tool_path = '/path/to/your/ai_tool.py'
+" Set the command for a custom AI tool
+let g:ai_query_command = 'python3 /path/to/your/ai_tool.py'
 
 " Override default instructions
 let g:ai_query_agent_instructions = 'You are an expert web developer. Respond to user queries with code only. Do not include any additional text in your response.'
@@ -97,19 +97,8 @@ if __name__ == "__main__":
     main()
 ```
 
-**Important:**  Remember to make your Python script executable:
-
-```bash
-chmod +x your_ai_cli_tool.py
-```
-
-And ensure the path to the Python executable is correct in the shebang line of the script (e.g., `#!/usr/bin/env python3`).
-
 ## Troubleshooting
 
-*   **`Error: CLI tool not found or not executable`**: Verify that the path to your AI tool is correct in `g:ai_query_tool_path` and that the tool is executable.
+*   **`Error: CLI tool not found or not executable`**: Verify that the path to your AI tool is correct in `g:ai_query_command` and that the tool is executable.
 *   **No output from AI**: Check the AI tool for errors and ensure it is printing the modified code to standard output.
 *   **Error executing CLI tool**: Examine the output from the AI tool for error messages. Ensure that any API keys or authentication credentials are set up correctly.
-*   **Diff window not opening**: This might occur if the output from the AI tool is identical to the input file.
-
-
