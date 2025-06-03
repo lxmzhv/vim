@@ -9,11 +9,13 @@ endif
 
 let g:ai_query_plugin_loaded = 1
 
+
 " --- Configuration ---
+
 " Define a default value if the user doesn't set it
-if !exists('g:ai_query_tool_path')
+if !exists('g:ai_query_command')
     let s:ai_plugin_root = expand('<sfile>:p:h:h') " Go from .../ai/autoload/ai.vim to .../ai
-    let g:ai_query_tool_path = s:ai_plugin_root . '/python/gemini.py'
+    let g:ai_query_command = 'python3 ' . s:ai_plugin_root . '/python/gemini.py'
 endif
 
 if !exists('g:ai_query_agent_instructions')
@@ -38,21 +40,21 @@ function! s:RunAiQuery(query)
 
     " 3. Construct the command.
     "    Ensure proper shell escaping for the parameters.
-    let l:cli_tool_path = expand(g:ai_query_tool_path) " Expand ~ if present
+    let l:cli_tool_command = expand(g:ai_query_command) " Expand ~ if present
 
-    if !executable(l:cli_tool_path)
-        echohl ErrorMsg
-        echo "Error: CLI tool not found or not executable at " . l:cli_tool_path
-        echohl None
-        call delete(l:temp_input_file)
-        return
-    endif
+    "if !executable(l:cli_tool_command)
+    "    echohl ErrorMsg
+    "    echo "Error: CLI tool not found or not executable at " . l:cli_tool_command
+    "    echohl None
+    "    call delete(l:temp_input_file)
+    "    return
+    "endif
 
     let l:escaped_query = shellescape(a:query)
     let l:escaped_input_file = shellescape(l:temp_input_file)
     let l:escaped_agent_instructions = shellescape(g:ai_query_agent_instructions)
 
-    let l:command_to_run = l:cli_tool_path . ' -m ' . l:escaped_query . ' -i ' .
+    let l:command_to_run = l:cli_tool_command . ' -m ' . l:escaped_query . ' -i ' .
         \ l:escaped_input_file .  ' -I ' . l:escaped_agent_instructions
 
     " 4. Execute the command and get its output
