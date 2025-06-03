@@ -1,0 +1,1 @@
+/Users/lainindo/proj/plagueis/darth_plagueis_bot/bin/gemini.py
